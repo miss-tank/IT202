@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+  <link rel="icon" href="favicon.ico">
+
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  <title>Chicago FooD INspection data</title>
+  <style>
+        /* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+        #map {
+          height: 100%;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+        }
+
+        .formclass
+        {
+          padding-left: 420px;
+          font-family: "Times New Roman", Times, serif;
+          font-size: 20px;
+
+        }
+
+        p{
+          font-size: 20px;
+          padding-left: 40px;
+          color: #008CBA;
+          font-family: "Times New Roman", Times, serif;
+        }
+
+        h1
+        {
+          font-family: "Times New Roman", Times, serif;
+          font-size: 35px;
+          text-align: center;
+        }
+        .as
+        {
+          font-family: "Times New Roman", Times, serif;
+          border: none;
+          color: white;
+          padding: 10px 20px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 25px;
+          margin: 4px 2px;
+          cursor: pointer;
+          background-color: #008CBA;
+        }
+
+      </style>
+
+      <!-- Bootstrap core CSS -->
+      <link href="bootstrap.min.css" rel="stylesheet">
+
+      <!-- Custom styles for this template -->
+      <link href="jumbotron.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+
+
+
+      <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <a class="navbar-brand " data-toggle="tab" href="#">Navbar</a>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+          <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item active">
+              <a class="nav-link " data-toggle="tab" href="#form" class="tablinks">Input Form <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link text"  data-toggle="tab" class="tablinks" href="#Textoutput" onclick="show(event,'text')">Text Output</a>
+            </li>
+
+            <li class="nav-item active">
+              <a class="nav-link showmap" class="tablinks"  href="#showmap">Map</a>
+            </li>
+
+          </ul>
+
+        </div>
+      </nav>
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="container">
+          <h1> Chicago Food Inspection </h1><br><br>
+          <div class="formclass" id= "form">
+            <form>
+              Inspection date :   &nbsp;&nbsp;   <input type="text" id="inspdate" placeholder="year-month-day">  <br><br>
+              Facility type :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <select id="fac">
+                <option value="Bakery">Bakery</option>
+                <option value="1023">1023</option>
+                <option value="Airport Lounge">Airport Lounge</option>
+                <option value="Art Gallery">Art Gallery</option>
+                <option value="Grocery Store">Grocery Store</option>
+                <option value="Restaurant">Restaurant </option>
+                <option value="School">School </option>
+                <option value="ROOFTOP">ROOFTOP </option>
+
+
+
+
+              </select><br><br>
+              Result : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <select id="res">
+                <option value="Pass">Pass</option>
+                <option value="Fail">Fail</option>
+              </select><br><br>
+              Zipcode :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input type="text" id="zip" >
+              <br><br>
+            </form>
+
+            <button class="as"  onclick="myFunction()">     <i class="fa fa-search"> Search</i> </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="location"> </p>
+    <div id="map" class="tabcontent"></div>
+    <script src="bootstrap.min.js"></script>
+    <script >
+      var count=0;
+
+      function myFunction()
+      {
+        console.log("you clicke");
+        var count=0;
+        var inspectdate = document.getElementById("inspdate").value;
+        console.log("this is my inspectdate " +inspectdate );
+
+        var zipcode = document.getElementById("zip").value;
+        console.log("this is my zipcode " +zipcode );
+
+        var PF = document.getElementById("res").value;
+        console.log("this is my zipcode " +PF );
+
+        var facilitytype = document.getElementById("fac").value;
+        console.log("this is my zipcode " +facilitytype );
+
+
+        var urlstring="https://data.cityofchicago.org/resource/cwig-ma7x.json?";
+
+        var zipstring="zip="+zipcode;
+
+        var datestring= "&inspection_date="+inspectdate;
+
+        var resultstring = "&results="+PF;
+
+        var facilitystring= "&facility_type="+facilitytype;
+
+        urlstring=urlstring+zipstring+resultstring +facilitystring +datestring;
+
+        console.log("ths is the final url'" +urlstring +"'");
+        var uluru = {latitude: -25.363, longitude: 131.044};
+
+        $.get(urlstring, function( data )
+        {
+          $( ".result" ).html( data );
+          $.each(data, function(i,v)
+          {
+            count++;
+
+            console.log("this is the console");
+
+            console.log("this is zipcode " +v.zip);
+            console.log("this is result "+ v.results);
+            console.log("this is fac " +v.facility_type);
+            console.log("this is adte " +v.inspection_date);
+
+
+            $("p").append(v.aka_name +" Located at "+ v.address + " " +v. city +" " +v. zip +" has result status " + v.results +" <br>");
+          });
+
+
+          $("p").append("There are "+count+ " results returned" +"<br>");
+
+
+          var map = new google.maps.Map(document.getElementById('map'),
+          {
+            zoom: 9,
+            center: {lat: parseFloat(data[0].latitude), lng: parseFloat(data[0].longitude)},
+          });
+          console.log(" longi =  "+parseFloat(data[0].longitude));
+          console.log(" lat =  "+parseFloat(data[0].latitude));
+
+
+          $.each(data, function(i,v)
+          {
+           var contentString = "STRNG ";
+           var infowindow = new google.maps.InfoWindow({
+            content: contentString
+          });
+
+           var marker = new google.maps.Marker({
+            position: {lat: parseFloat(v.latitude), lng: parseFloat(v.longitude)},
+            map: map,
+            title: 'Uluru (Ayers Rock)'
+          });
+           marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+
+         });
+        });
+
+      }
+
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNbbgjTSevu5SKurDqZZbKtk5v1fTsOsg&callback=myFunction">
+  </script>
+
+</body>
+</html>
