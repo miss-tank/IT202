@@ -1,0 +1,215 @@
+
+
+
+
+
+    <!DOCTYPE html>
+    <html>
+
+
+
+    <style>
+
+    .body
+    {
+        background: black;
+    }
+    #canvas {
+        position: absolute;
+        top:0;
+        bottom: 0;
+        left: 100;
+        right: 0;
+        margin:auto;
+    }
+
+
+    .canvasdiv
+    {
+        margin-top: 100px;
+    }
+
+
+    .text
+    {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 20px;
+    }
+
+    #status
+    {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 50px;
+        color: red;
+    }
+    </style>
+
+    <head>
+        <title> </title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+
+
+
+    <body>
+         <p class="text">  There are my points :   <span id ="points" > 0 </span> </p>
+          <p class="text"> Remaining Life :   <span id ="lifeline"  > 9 </span> </p>
+          <p >  <span id ="status"  > </span> </p>
+            <div id="canvasdiv">
+        <canvas id="myCanvas" width=600 height=500 style="border:1px solid #000000;" align="center"  ></canvas>
+    </div>
+
+        <script>
+                    var c=document.getElementById("myCanvas");
+                    var ctx=c.getContext("2d");
+                    var gamepoint=0;
+                    var lives=9;
+                    var status;
+                    var random_numberharm = Math.floor((Math.random() * 600) + 5);
+                    var random_numberbene= Math.floor((Math.random() * 600) + 5);
+
+                    var harm= {y:c.height-450, x:random_numberharm, color: "red", radius: 20,shape:'circle'}
+                    var bene= {y:c.height-450, x:random_numberbene, color: "green", radius: 20,shape:'circle'};
+
+                    var player= {y:c.height-100,x:300 , color: "black" , radius:25, shape:'image'};
+                    var picture = new Image();
+
+
+
+
+
+            function draw() {
+                 ctx.clearRect(0,0, 600, 500);
+                // update character position properties
+                    harm.y =harm.y+2;
+                bene.y =bene.y+2;
+
+
+                if (areColliding(player, bene))
+                {
+                }
+
+                if (areColliding(player, harm))
+                {
+                }
+
+                if (reachedEdge(harm, 'bottom'))
+                {
+                         harm.y =  c.height-450;
+                         harm.x= Math.floor((Math.random() * 600) + 5);
+                }
+
+                 if (reachedEdge(bene, 'bottom'))
+                {
+
+                    bene.y =  c.height-450;
+                    bene.x=Math.floor((Math.random() * 600) + 5);
+
+                }
+                drawCharacter(player);
+                drawCharacter(harm);
+                //drawCharacter(person);
+               drawCharacter(bene);
+               if(lives!=0)
+               {
+                    requestAnimationFrame(draw);
+                }
+                else
+                {
+                    document.getElementById("status").innerHTML= "GAME OVER";
+                }
+            }
+
+            function drawCharacter(character) {
+                switch (character.shape) {
+                    case 'circle':
+                        drawCircle(character.x, character.y, character.radius, character.color);
+                        break;
+                    case 'image':
+                        picture.src="emoji.png";
+                        picture.width="20";
+                        drawImageperson(picture, character.x, character.y,80,80);
+                        break;
+                    default:
+                        console.log('character.shape case fell through');
+                }
+            }
+
+             function drawImageperson(source, x, y,h,w)
+             {
+                  ctx.drawImage(source, x, y,h,w);
+             }
+
+            function drawCircle(x, y, radius, color) {
+                    ctx.beginPath();
+                    ctx.arc(x,y,radius,0,2*Math.PI);
+                    ctx.fillStyle = color;
+                    ctx.fill();
+            }
+
+            function areColliding(character1, character2)
+            {
+
+                var dx = character1.x - character2.x;
+                var dy = character1.y - character2.y;
+                var distance = Math.sqrt(dx * dx + dy * dy);
+
+                if(character2.color=="red")
+                {
+                if (distance < character1.radius + character2.radius)
+                {
+                        console.log("harming");
+                        character2.y= 50;
+                        if(lives<=9 && lives>=1)
+                        {
+                            gamepoint=gamepoint-2;
+                            document.getElementById("points").innerHTML = gamepoint;
+                            lives=lives-1;
+                            document.getElementById("lifeline").innerHTML = lives;
+                        }
+                }
+            }
+
+            else
+            {
+                if((distance < character1.radius + character2.radius))
+                {
+                        console.log("benefiting");
+                        character2.y= 50;
+                        if(lives<=9 && lives>=1)
+                        {
+                            gamepoint=gamepoint+5;
+                            document.getElementById("points").innerHTML = gamepoint;
+                        }
+                }
+            }
+        }
+
+            function reachedEdge(character, edge) {
+                if (edge == 'bottom' && character.y > 499)
+                    return true;
+            }
+
+     document.onkeydown = function(e)
+     {
+        e = e || window.event;
+        console.log("key press")
+        if(e.keyCode == 39)
+        {
+            player.x= player.x+10;
+        }
+
+    if(e.keyCode == 37)
+        {
+            player.x= player.x-10;
+        }
+     }
+
+            $(document).ready(function() {
+                    requestAnimationFrame(draw);
+                });
+        </script>
+    </body>
+    </html>
