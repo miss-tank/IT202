@@ -242,6 +242,10 @@ $.getJSON(url_String, function( data )
         var seconds= str.substring(17, 19);
         var now_minute = now.getMinutes();
         var diff= minutes-now_minute;
+         if(diff<0)
+        {
+           diff = diff+60;
+        }
         $('#ETA').append(diff +" mins");
         $('#StationName').append(station_name);
         $('#Travelling_Direction').append(destination);
