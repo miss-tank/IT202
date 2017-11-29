@@ -20,8 +20,6 @@ var StringTime="";
 
 
 const CTA_FavoriteStop = [
-{ id: "00-01", name: "gopal", age: 35, email: "gopal@tutorialspoint.com" },
-{ id: "00-02", name: "prasad", age: 32, email: "prasad@tutorialspoint.com" }
 ];
 
 
