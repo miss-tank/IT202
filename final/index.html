@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">  </script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+      </script>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+
+
+
+      <script src="myScript.js"></script>
+
+
+  <style>
+  
+  
+  #template
+{
+  display: none;
+}
+  body {font-family: Arial;}
+
+  /* Style the tab */
+  div.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+  }
+
+  /* Style the buttons inside the tab */
+  div.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 150px;
+    transition: 0.3s;
+    font-size: 17px;
+  }
+
+  /* Change background color of buttons on hover */
+  div.tab button:hover {
+    background-color: #ddd;
+  }
+
+  /* Create an active/current tablink class */
+  div.tab button.active {
+    background-color: #acacac;
+  }
+
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+  }
+
+  body {
+      font-family: "Trebuchet MS", Helvetica, sans-serif  ;
+
+background-image: url();
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+
+}
+
+
+.header
+{
+  text-align: center;
+      font-family: "Trebuchet MS", Helvetica, sans-serif  ;
+
+}
+
+
+.app_description
+{
+  text-align: center;
+      font-family: "Trebuchet MS", Helvetica, sans-serif  ;
+
+}
+
+.dropdownmenu
+{
+  margin-left:427px;
+  font-family: "Trebuchet MS", Helvetica, sans-serif  ;
+
+}
+
+.dropdownmenu2
+{
+  margin-left:427px;
+  font-family: "Trebuchet MS", Helvetica, sans-serif  ;
+
+}
+
+.dropdownmenu22
+{
+  margin-left:566px;
+  font-family: "Trebuchet MS", Helvetica, sans-serif  ;
+
+}
+
+.buttondiv
+{
+  margin-left:550px;
+  font-family: "Trebuchet MS", Helvetica, sans-serif  ;
+
+}
+
+select {
+    font-size: 20px;
+    font-family: "Trebuchet MS", Helvetica, sans-serif  ;
+    width: 400px;
+}
+
+.save{
+    margin-left:450px;
+
+  background-color: #1975a0; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 31px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: "Trebuchet MS", Helvetica, sans-serif  ;
+
+    font-size: 25px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+
+
+.button {
+    background-color: #1975a0; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 31px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: "Trebuchet MS", Helvetica, sans-serif  ;
+
+    font-size: 25px;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.buttonStation:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.w3-row
+{
+      text-align: center;
+
+}
+
+#googleMap {
+          height: 100%;
+        }
+
+</style>
+</head>
+<body >
+<h1 class="header"> CTA TRAIN TRACKER APP </h1>
+  <p class ="app_description">CTA Train Tracker Application allows you  to check the estimate time of arrival for arrival station of your choice.</p>
+
+  <div class="tab">
+    <button class="tablinks" onclick="openCity(event, 'user')">Choose Station </button>
+    <button class="tablinks" onclick="openCity(event, 'map')">ETA Of The Train</button>
+    <button class="tablinks" onclick="openCity(event, 'tracker')">Favourites</button>
+  </div>
+
+
+
+
+
+
+
+
+  <div id="user" class="tabcontent">
+    <h3 class ="app_description">Select Station </h3>
+
+
+<div class ="dropdownmenu">
+ <select id="dropdown1" name="dropdown1" >
+ </select>
+</div>
+<br>
+<br>
+<div class="buttondiv">
+
+ <button onclick="showETA()" class="buttonStation button "> Select </button>
+
+</div>
+
+  </div>
+
+  <div id="map" class="tabcontent">
+
+
+
+<div class="w3-row w3-border ">
+<div class="w3-third w3-container">
+  <h2>Station Name </h2>
+     <div id="StationName" class="StationName1"> </div>
+
+</div>
+<div class="w3-third w3-container">
+  <h2>Travelling</h2>
+   <div id="Travelling_Direction" class="Travelling_Direction1"> </div>
+</div>
+<div class="w3-third w3-container">
+  <h2>ETA</h2>
+  <div id="ETA" class="ETA1"> </div>
+</div>
+</div>
+
+
+
+
+
+  </div>
+
+  <div id="tracker" class="tabcontent">
+
+
+       <h3 class="app_description"> Select your Favourite </h3>
+
+
+<div class ="dropdownmenu2">
+ <select id="dropdown2" name="dropdown2" >
+ </select>
+</div>
+
+<br>
+       <button id="FavouriteButton " class="save" onclick="addToFav()"> Save Station as favourite </button>
+
+<div class="w3-container a hidden " id="template">
+  <br>
+  <ul class="w3-ul w3-card-4 b" id="templateUl">
+    <li class="w3-bar c" id="templateLi">
+      <div class="w3-bar-item d" id="templatediv">
+        <p class="w3-large e" id="stationNamediv"> </p>
+        <br>
+        <p class="TimeOfArrival"> </p>
+      </div>
+    </li>
+  </ul>
+</div>
+
+
+
+
+  </div>
+
+<br>
+<div class="dropdownmenu22">  <button onclick="readAll()">Show Favourite</button> </div>
+       
+     
+
+
+</body>
+</html>
