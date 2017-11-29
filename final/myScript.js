@@ -19,8 +19,7 @@ var clone;
 var StringTime="";
 
 
-const CTA_FavoriteStop = [
-];
+var CTA_FavoriteStop = [];
 
 
 var  eta_url="http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx&key=02e9143f2a704f948d2e32fa5901872c&outputType=JSON";
